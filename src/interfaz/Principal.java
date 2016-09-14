@@ -5,6 +5,9 @@
  */
 package interfaz;
 
+import clases.Complejo;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jaime
@@ -14,6 +17,8 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
+    Complejo c;
+
     public Principal() {
         initComponents();
     }
@@ -49,7 +54,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("OPERACIONES CON NUMEROS COMPLEJOS");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, -1, 20));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, 20));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Datos:"));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -98,7 +103,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel3.setText("i");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, 10, 40));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 350, 100));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 360, 100));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Resultado:"));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -116,9 +121,19 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 160, 100));
 
         cmdCalcular.setText("Calcular");
+        cmdCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdCalcularActionPerformed(evt);
+            }
+        });
         jPanel1.add(cmdCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 110, 30));
 
         cmdLimpiar.setText("Limpiar");
+        cmdLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdLimpiarActionPerformed(evt);
+            }
+        });
         jPanel1.add(cmdLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 110, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -137,23 +152,23 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtReal1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReal1KeyTyped
-char c = evt.getKeyChar();
+        char c = evt.getKeyChar();
         if (!Character.isDigit(c)) {
             getToolkit().beep();
             evt.consume();
-        }        
+        }
     }//GEN-LAST:event_txtReal1KeyTyped
 
     private void txtImaginaria1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtImaginaria1KeyTyped
-char c = evt.getKeyChar();
+        char c = evt.getKeyChar();
         if (!Character.isDigit(c)) {
             getToolkit().beep();
             evt.consume();
-        }        
+        }
     }//GEN-LAST:event_txtImaginaria1KeyTyped
 
     private void txtReal2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReal2KeyTyped
-char c = evt.getKeyChar();
+        char c = evt.getKeyChar();
         if (!Character.isDigit(c)) {
             getToolkit().beep();
             evt.consume();
@@ -161,16 +176,100 @@ char c = evt.getKeyChar();
     }//GEN-LAST:event_txtReal2KeyTyped
 
     private void txtImaginaria2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtImaginaria2KeyTyped
-char c = evt.getKeyChar();
+        char c = evt.getKeyChar();
         if (!Character.isDigit(c)) {
             getToolkit().beep();
             evt.consume();
-        }        
+        }
     }//GEN-LAST:event_txtImaginaria2KeyTyped
 
     private void txtReal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReal1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtReal1ActionPerformed
+
+    private void cmdCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCalcularActionPerformed
+
+        if (txtReal1.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite por favor la parte real");
+            txtReal1.requestFocusInWindow();
+        } else if (txtImaginaria1.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite por favor la parte imaginaria");
+            txtImaginaria1.requestFocusInWindow();
+        } else if (txtReal2.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite por favor la parte real");
+            txtReal2.requestFocusInWindow();
+        } else if (txtImaginaria2.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite por favor la parte imaginaria");
+            txtImaginaria2.requestFocusInWindow();
+        }
+        try{
+            
+        
+        int real1 = Integer.parseInt(txtReal1.getText());
+        int imaginario1 = Integer.parseInt(txtImaginaria1.getText());
+
+        Complejo c1 = new Complejo(real1, imaginario1);
+
+        int real2 = Integer.parseInt(txtReal2.getText());
+        int imaginario2 = Integer.parseInt(txtImaginaria2.getText());
+
+        Complejo c2 = new Complejo(real2, imaginario2);
+        Complejo f3;
+        int op = cmbOperaciones.getSelectedIndex();
+
+        switch (op) {
+            case 0:
+                f3 = c1.Sumar(c2);
+                txtReal3.setText("" + f3.getReal());
+                txtImaginaria3.setText("" + f3.getImaginario());
+                break;
+            case 1:
+                f3 = c1.Resta(c2);
+                txtReal3.setText("" + f3.getReal());
+                txtImaginaria3.setText("" + f3.getImaginario());
+                break;
+            case 2:
+                f3 = c1.Multiplicacion(c2);
+                txtReal3.setText("" + f3.getReal());
+                txtImaginaria3.setText("" + f3.getImaginario());
+                break;
+            case 3:
+                f3 = c1.Dividir(c2);
+                txtReal3.setText("" + f3.getReal());
+                txtImaginaria3.setText("" + f3.getImaginario());
+                break;                
+        }
+        cmdCalcular.setEnabled(false);
+        txtImaginaria1.setEnabled(false);
+        txtImaginaria2.setEnabled(false);
+        txtImaginaria3.setEnabled(false);
+        txtReal1.setEnabled(false);
+        txtReal2.setEnabled(false);
+        txtReal3.setEnabled(false);
+        cmbOperaciones.setEnabled(false);
+        }catch (NumberFormatException e){}
+
+    }//GEN-LAST:event_cmdCalcularActionPerformed
+
+    private void cmdLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLimpiarActionPerformed
+        txtReal1.requestFocusInWindow();
+        txtReal1.setText("");
+        txtReal2.setText("");
+        txtReal3.setText("");
+        txtImaginaria1.setText("");
+        txtImaginaria2.setText("");
+        txtImaginaria3.setText("");
+
+        cmbOperaciones.setSelectedIndex(0);
+        cmdCalcular.setEnabled(true);
+        txtImaginaria1.setEnabled(true);
+        txtImaginaria2.setEnabled(true);
+        txtImaginaria3.setEnabled(true);
+        txtReal1.setEnabled(true);
+        txtReal2.setEnabled(true);
+        txtReal3.setEnabled(true);
+        cmbOperaciones.setEnabled(true);
+    }//GEN-LAST:event_cmdLimpiarActionPerformed
 
     /**
      * @param args the command line arguments
