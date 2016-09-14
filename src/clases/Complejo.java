@@ -41,5 +41,22 @@ public class Complejo {
         Complejo c = new Complejo(real, imaginario);
         return c;
     }
-
+    public Complejo Resta(Complejo c2){
+        real = this.getReal() - c2.getReal();
+        imaginario = this.getImaginario() - c2.getImaginario();
+        Complejo c = new Complejo(real, imaginario);
+        return c;
+    }
+    public Complejo Multiplicacion(Complejo c2){
+        real = (this.getReal() * c2.getImaginario()) - (this.getImaginario()* c2.getImaginario());
+        imaginario = (this.getReal() * c2.getReal()) + (this.getImaginario() * c2.getReal());
+        Complejo c = new Complejo(real, imaginario);
+        return c;
+    }
+    public Complejo Dividir(Complejo c2){
+       real = (this.getReal() * c2.getReal()) + (this.getImaginario() * c2.getImaginario());
+       imaginario = (this.getImaginario() * c2.getReal()) - (this.getReal() * c2.getImaginario());
+       Complejo c = new Complejo(real, imaginario);
+       return c;
+    }
 }
